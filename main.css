@@ -1,0 +1,20 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+}
+
+#bar{
+    background-color: #222222;
+    color: #eee;
+    /* height: 100%; */
+    float: left;
+    height: 100%;
+    width: 19%;
+
+}
+
+#gameArea{
+    position: relative;
+    background-color: #fff;
+}
