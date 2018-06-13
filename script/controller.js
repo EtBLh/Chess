@@ -1,5 +1,7 @@
 const renderer = require('./renderer.js');
-const service = require('./service.js');
+const service = require('service/service.js');
+const playerControl = require('service/playerControl.js');
+const AIControl = require('service/AIControl.js');
 const remote = require('electron').remote;
 
 var gameArea = document.getElementById('gameArea');
