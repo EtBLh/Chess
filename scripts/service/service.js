@@ -5,7 +5,7 @@ const dto = require('../dto.js');
  * dto: data transfer object (singleton)
  **/
 
-module.exports = (refresh) => {
+module.exports = function service(refresh){
     
     var gameDto = dto.getInstance();
 

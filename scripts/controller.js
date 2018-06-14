@@ -1,3 +1,4 @@
+const initialize = require('./initialize.js');
 const renderer = require('./renderer.js');
 const service = require('./service/service.js');
 const playerControl = require('./service/playerControl.js');

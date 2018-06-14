@@ -4,34 +4,37 @@
  * 
  */
 
+
+/**
+ * singleton
+ * how to get:
+ * 
+ * var gamedto = dto.getInstance();
+ * 
+ */
+
 function dto() {
-
-    /**
-     * singleton
-     * how to get:
-     * 
-     * var gamedto = dto.getInstance();
-     * 
-     */
-
-    let instance = new dto();
-    this.getInstance = () => instance;
 
     /**
      * private variables
      */
 
-    let map = [][];
+    let map = [
+        []
+    ];
 
     /**
      * getters and setters
      */
-    
+
     this.getMap = () => map;
-    this.setMap = ( _map ) => {
+    this.setMap = (_map) => {
         map = _map;
     }
 
 }
 
-module.exports = dto;
+let instance = new dto();
+getInstance = () => instance;
+
+module.exports.getInstance = getInstance;
