@@ -35,6 +35,5 @@ function dto() {
 }
 
 let instance = new dto();
-getInstance = () => instance;
 
-module.exports.getInstance = getInstance;
+module.exports.getInstance = () => instance;
