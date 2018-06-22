@@ -1,0 +1,47 @@
+@COLOR_START: #e740d2;
+@COLOR_END: #4a0fad;
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    // -webkit-app-region: drag;
+    // background: -webkit-linear-gradient(28deg, @COLOR_START, @COLOR_END ) no-repeat; 
+    background: #f0f0f0;
+}
+
+#container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    #gameAreaContainer {
+        border-radius: 15px;
+        border: rgba(255, 255, 255, 0) solid 1px;
+        overflow: hidden;
+        filter: drop-shadow(0px 0px 5px rgba(99, 99, 99, 0.7));
+    }
+}
+
+@MENU_CELL_LENGTH: 7em;
+@MENU_COUNT: 5;
+#menu {
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    width: @MENU_CELL_LENGTH;
+    height: @MENU_CELL_LENGTH * @MENU_COUNT;
+    div{
+        width: @MENU_CELL_LENGTH;
+        height: @MENU_CELL_LENGTH;
+    }
+}
