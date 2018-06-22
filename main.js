@@ -4,10 +4,14 @@
  * 
  */
 
-const { app, BrowserWindow } = require('electron');
+const {
+    app,
+    BrowserWindow
+} = require('electron');
 
 let mainWindow;
-const height = 618, width = 1000;
+const height = 988,
+    width = 1600;
 
 (function main() {
     app.on('ready', createWindow);
@@ -24,7 +28,11 @@ const height = 618, width = 1000;
 })();
 
 function createWindow() {
-    mainWindow = new BrowserWindow({ width: width, height: height });
+    mainWindow = new BrowserWindow({
+        width: width,
+        height: height,
+        frame: false
+    });
 
     mainWindow.loadFile('index.html');
 

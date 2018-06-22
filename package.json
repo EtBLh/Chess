@@ -4,12 +4,17 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build_mac": "electron-packager . CHESS --platform=darwin --arch=ia32 --version=0.36.0 --icon=myapp.icns --asar=true --ignore=node_modules/electron-* ",
+    "build_win32": "electron-packager . CHESS --platform=win32 --arch=ia32 --version=0.36.0 --icon=myapp.ico --asar=true --ignore=node_modules/electron-* ",
+    "build_linux": "electron-packager . CHESS --platform=linux --arch=ia32 --version=0.36.0 --icon=myapp.png --asar=true --ignore=node_modules/electron-* ",
+    "csscompile": "lessc main.less main.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "electron": "^2.0.2"
-  }
+  },
+  "dependencies": {}
 }

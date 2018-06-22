@@ -11,34 +11,25 @@
 
 <body>
 
-    <div class="page">
-        <span class="menu_toggle">
-            <i class="menu_open fa fa-bars fa-lg"></i>
-            <i class="menu_close fa fa-times fa-lg"></i>
-        </span>
-        <ul class="menu_items">
-            <li>
-                <a href="#">
-                    <i class="icon fa fa-signal fa-2x"></i> Moar</a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="icon fa fa-coffee fa-2x"></i> Coffee</a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="icon fa fa-heart fa-2x"></i> Please</a>
-            </li>
-        </ul>
-        <main class="content">
-            <div id="gameBackground">
-                <canvas id="gameArea" width="600" height="600"></canvas>
-            </div>
-        </main>
+    <div id="container">        
+        <div id="gameAreaContainer">
+            <canvas id="gameArea" width="800" height="800" ></canvas>
+        </div>
     </div>
+
+    <nav id="menu">
+
+    </nav>
+
     <script>
-        require('./scripts/controller.js');    
+        require('./scripts/controller.js');
     </script>
 </body>
+<!-- <div>Icons made by
+    <a href="http://www.freepik.com" title="Freepik">Freepik</a> from
+    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
+    <a href="http://creivecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
+        target="_blank">CC 3.0 BY</a>
+</div> -->
 
 </html>
