@@ -1,4 +1,5 @@
 const board = require('./board.js');
+const chess = require('./chess.js');
 
 const colorTheme909 = {
     boardLight: "#F2F2F2",
@@ -9,11 +10,11 @@ const colorTheme909 = {
 
 module.exports = function renderer(gc, width, height) {
 
-    var boardDrawer = new board(gc, width, height, colorTheme909);
+    var boardRenderer = new board(gc, width, height, colorTheme909);
+    var chessRenderer = new chess(gc, colorTheme909);
 
     this.refresh = () => {
-        boardDrawer.refresh();
+        boardRenderer.refresh();
+        chessRenderer.refresh();
     }
-
-    
 };

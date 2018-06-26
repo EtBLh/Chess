@@ -1,34 +1,21 @@
-const fs = require('fs');
+function chess(gc) {
 
-var chess = (theme) => {
-    /**
-     * private
-     */
-    var colorTheme = theme;
-
-    //chess set (self/ally)
-    var chessImagesS = {};
-    //chess set (enemy)
-    var chessImagesE = {};
-
-    /**
-     * 
-     * @param {the color you want to use (hex color)} color
-     */
-    var getChessSet = (color) => {
+    var getChessSet = () => {
         //chess names
         var chess = ['bishop', 'king', 'knight', 'pawn', 'queen', 'rook'];
         chessSet = {};
         chess.forEach((value, index, array) => {
-            var file = fs.readFileSync('../assets/images' + value + '.svg', {
-                encoding: 'utf8'
-            });
-            file = file.replace('#000000', colorTheme.chessS);
             var img = new Image();
-            img.src = "data:image/svg+xml;charset=utf-8," + file;
+            img.src = './assets/images/chess-' + value + '.svg'
             chessSet[value] = img;
         });
         return chessSet;
+    }
+
+    var chessImagesE = getChessSet();
+
+    this.refresh = () => {
+        gc.drawImage(chessImagesE['rook'], 0, 0);
     }
 }
 
