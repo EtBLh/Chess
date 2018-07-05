@@ -4,7 +4,7 @@ const dto = require('..../dto.js');
  * var pawn = pawn.getInstance();
  */
 
-function name (color) {
+function knight (color) {
 
     let gameDto = dto.getInstance();
 
@@ -29,7 +29,27 @@ function name (color) {
         let x = pos[0],
             y = pos[1]; // (x,y) is the position
 
-        let is_cango = coordinate => (map[coordinate[0]][coordinate[1]] !== null && map[coordinate[0]][coordinate[1]].color !== this.color);
+        let is_cango = coor => {
+            if (map[coor[0]][coor[1]] === null ) {
+                return true;
+            }
+            else if (map[coor[0]][coor[1]].color !== this.color) return true;
+            return false;
+        }
+
+
+        /**
+         * oob refer to out_of_board
+         * Input :
+         *      an array, the position
+         * Output :
+         *      true or false
+         */
+
+        let oob = pos => {
+            if (x>7 || x<0 || y>7 || y<0) return false;
+            return true;
+        }
 
         /* *
          * cases of canGo
@@ -47,45 +67,47 @@ function name (color) {
           **/
 
          // case 1
-         if (x-1>=0 && y+2<=7 && is_cango([x-1,y+2])) {
+         if (oob([x-1,y+2]) && is_cango([x-1,y+2])) {
              arr.push([x-1,y+2]);
          }
 
          //case 2
-         if (x+1<=7 && y+2<=7 && is_cango([x+1,y+2])) {
+         if (oob([x+1,y+2]) && is_cango([x+1,y+2])) {
              arr.push([x+1,y+2]);
          }
 
          //case 3
-         if (x-2>=0 && y+1<=7 && is_cango([x-2,y+1])) {
+         if (oob([x-2,y+1]) && is_cango([x-2,y+1])) {
              arr.push([x-2,y+1]);
          }
 
          //case 4
-         if (x+2<=7 && y+1<=7 && is_cango([x+2,y+1])) {
+         if (oob([x+2,y+1]) && is_cango([x+2,y+1])) {
              arr.push([x+2,y+1]);
          }
 
          //case 5
-         if (x-2>=0 && y-1>=0 && is_cango([x-2,y-1])) {
+         if (oob([x-2,y-1]) && is_cango([x-2,y-1])) {
              arr.push([x-2,y-1]);
          }
 
          //case 6
-         if (x+2<=7 && y-1>=0 && is_cango([x+2,y-1])) {
+         if (oob([x+2,y-1]) && is_cango([x+2,y-1])) {
              arr.push([x+2,y-1]);
          }
 
          // case 7
-         if (x-1>=0 && y-2>=0 && is_cango([x-1,y-2])) {
+         if (oob([x-1,y-2]) && is_cango([x-1,y-2])) {
              arr.push([x-1,y-2]);
          }
 
          // case 8
-         if (x+1<=7 && y-2>=0 && is_cango([x+1,y-2])) {
+         if (oob([x+1,y-2]) && is_cango([x+1,y-2])) {
              arr.push([x+1,y-2]);
          }
 
         return arr;
     };
 }
+
+module.exports = knight;

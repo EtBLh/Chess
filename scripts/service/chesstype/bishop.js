@@ -4,7 +4,7 @@ const dto = require('..../dto.js');
  * var pawn = pawn.getInstance();
  */
 
-function name (color) {
+function bishop (color) {
 
     let gameDto = dto.getInstance();
 
@@ -29,33 +29,62 @@ function name (color) {
         let x = pos[0],
             y = pos[1]; // (x,y) is the position
 
-        let is_cango = coordinate => (map[coordinate[0]][coordinate[1]] !== null && map[coordinate[0]][coordinate[1]].color !== this.color);
+        let first_enermy = true;
+
+        let is_cango = coor => {
+            if (map[coor[0]][coor[1]] === null ) {
+                return true;
+            }
+            else if (map[coor[0]][coor[1]].color !== this.color) {
+                if (first_enermy) {
+                    first_enermy = false;
+                    return true;
+            }
+        }
 
         /* cases of canGo*/
 
         let i = i || 0;
 
         //case 1: right tilted
-        i = 0;
-        while (x+i<=8 && y+i<=8 && is_cango([x+i][y+i])) {
-            arr.push([x+i,y+i]);
+        i = 1;
+        while (obb([x+i,y+i])) {
+            if (map[x+i][y+i] === null) arr.push([x+i,y+i]);
+            else {
+                if (map[x+i][y+i].color !== this.color) arr.push([x+i,y+i]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (x-i>=0 && y-i>=0 && is_cango([x-i,y-i])) {
-            arr.push([x-i,y-i]));
+
+        i = 1;
+        while (obb([x-i,y-i])) {
+            if (map[x-i][y-i] === null) arr.push([x-i,y-i]);
+            else {
+                if (map[x-i][y-i].color !== this.color) arr.push([x-i,y-i]);
+                break;
+            }
             i++;
         }
 
         //case 2: left tilted
-        i = 0;
-        while (x-i<=8 && y+i<=8 && is_cango([x-i][y+i])) {
-            arr.push([x+i,y+i]);
+        i = 1;
+        while (obb([x-i,y+i])) {
+            if (map[x-i][y+i] === null) arr.push([x-i,y+i]);
+            else {
+                if (map[x-i][y+i].color !== this.color) arr.push([x-i,y+i]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (x+i>=0 && y-i>=0 && is_cango([x+i,y-i])) {
-            arr.push([x-i,y-i]));
+
+        i = 1;
+        while (obb([x+i,y-i])) {
+            if (map[x+i][y-i] === null) arr.push([x+i,y-i]);
+            else {
+                if (map[x+i][y-i].color !== this.color) arr.push([x+i,y-i]);
+                break;
+            }
             i++;
         }
 
@@ -63,3 +92,5 @@ function name (color) {
         return arr;
     };
 }
+
+module.exports = bishop;

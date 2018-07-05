@@ -10,7 +10,7 @@ function queen (color) {
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    //this.type = 'queen';
+    this.type = 'queen';
 
     this.canGo = pos => {
 
@@ -29,60 +29,109 @@ function queen (color) {
         let x = pos[0],
             y = pos[1]; // (x,y) is the position
 
-        let is_cango = coordinate => (map[coordinate[0]][coordinate[1]] !== null && map[coordinate[0]][coordinate[1]].color !== this.color);
+        let oob = pos => {
+            if (x>7 || x<0 || y>7 || y<0) return false;
+            return true;
+        }
+
+        /**
+         * oob refer to out_of_board
+         * Input :
+         *      an array, the position
+         * Output :
+         *      true or false
+         */
 
         /* cases of canGo*/
 
         let i = i || 0;
 
         //case 1: go by row
-        i = 0;
-        while (y+i<=7 && is_cango([x,y+i])) {
-            arr.push([x,y+i]);
+        i = 1;
+        while (obb([x,y+i])) {
+            if (map[x][y+i] === null) arr.push([x,y+i]);
+            else {
+                if (map[x][y+i].color !== this.color) arr.push([x,y+i]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (y-i>=0 && is_cango([x,y-i])) {
-            arr.pusj([x,y-i]);
+
+        i = 1;
+        while (obb([x,y-i])) {
+            if (map[x][y-i] === null) arr.push([x,y-i]);
+            else {
+                if (map[x][y-i].color !== this.color) arr.push([x,y-i]);
+                break;
+            }
             i++;
         }
 
         //case 2: go by columns
-        i = 0;
-        while (x+i<=7 && is_cango([x+i,y])) {
-            arr.push([x+i,y]);
+        i = 1;
+        while (obb([x+i,y])) {
+            if (map[x+i][y] === null) arr.push([x+i,y]);
+            else {
+                if (map[x+i][y].color !== this.color) arr.push([x+i,y]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (x-i>=0 && is_cango([x+i,y])) {
-            arr.push([x-i,y]);
+
+        i = 1;
+        while (obb([x-i,y])) {
+            if (map[x-i][y] === null) arr.push([x-i,y]);
+            else {
+                if (map[x-i][y].color !== this.color) arr.push([x-i,y]);
+                break;
+            }
             i++;
         }
 
         //case 3: right tilted
-        i = 0;
-        while (x+i<=8 && y+i<=8 && is_cango([x+i][y+i])) {
-            arr.push([x+i,y+i]);
+        i = 1;
+        while (obb([x+i,y+i])) {
+            if (map[x+i][y+i] === null) arr.push([x+i,y+i]);
+            else {
+                if (map[x+i][y+i].color !== this.color) arr.push([x+i,y+i]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (x-i>=0 && y-i>=0 && is_cango([x-i,y-i])) {
-            arr.push([x-i,y-i]));
+
+        i = 1;
+        while (obb([x-i,y-i])) {
+            if (map[x-i][y-i] === null) arr.push([x-i,y-i]);
+            else {
+                if (map[x-i][y-i].color !== this.color) arr.push([x-i,y-i]);
+                break;
+            }
             i++;
         }
 
         //case 4: left tilted
-        i = 0;
-        while (x-i<=8 && y+i<=8 && is_cango([x-i][y+i])) {
-            arr.push([x+i,y+i]);
+        i = 1;
+        while (obb([x-i,y+i])) {
+            if (map[x-i][y+i] === null) arr.push([x-i,y+i]);
+            else {
+                if (map[x-i][y+i].color !== this.color) arr.push([x-i,y+i]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (x+i>=0 && y-i>=0 && is_cango([x+i,y-i])) {
-            arr.push([x-i,y-i]));
+
+        i = 1;
+        while (obb([x+i,y-i])) {
+            if (map[x+i][y-i] === null) arr.push([x+i,y-i]);
+            else {
+                if (map[x+i][y-i].color !== this.color) arr.push([x+i,y-i]);
+                break;
+            }
             i++;
         }
 
         return arr;
     };
 }
+
+module.exports = queen;

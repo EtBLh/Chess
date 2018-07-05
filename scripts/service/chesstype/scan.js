@@ -1,7 +1,7 @@
 const dto = require('..../dto.js');
 /**
  * how to use :
- * var scan = require('./scam')
+ * var scan = require('./scan')
  */
 
 /**
@@ -23,6 +23,10 @@ function scan(color) {
     for (x=0;x<map.length;++x)
         for (y=0;y<=map[x].length;++y) {
 
+            //determine if map[x][y] is an enermy
+            if (map[x][y].color === color) continue;
+
+            // add coordinate to Set
             for (let item in map[x][y].canGo()) {
                 s.add(item);
             }
@@ -34,12 +38,15 @@ function scan(color) {
 
     s.forEach(function (value)) {
         arr.push(value);
-    }
+    });
 
+    return arr;
 
 }
 
+module.export = scan;
+
 /**
- * log:
- * need to add something to recognize the color
+ * log :
+ * Need check
  */

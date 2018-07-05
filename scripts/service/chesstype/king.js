@@ -1,4 +1,5 @@
 const dto = require('..../dto.js');
+const scan = require('./scan.js');
 /**
  * how to get :
  * var pawn = pawn.getInstance();
@@ -14,7 +15,7 @@ function king (color) {
 
     this.firstStep = true ;
 
-    //this.type = 'king';
+    this.type = 'king';
 
     this.canGo = pos => {
 
@@ -33,7 +34,12 @@ function king (color) {
         let x = pos[0],
             y = pos[1]; // (x,y) is the position
 
-        let is_cango = coordinate => (map[coordinate[0]][coordinate[1]] !== null && map[coordinate[0]][coordinate[1]].color !== this.color);
+        let is_cango = coordinate => {
+            if (map[coordinate[0]][coordinate[1]] === null || map[coordinate[0]][coordinate[1]].color !== this.color) {
+                let arr = scan(this.color);
+                if (arr.indexOf(pos) === -1) return true;
+                else return false;
+            }
 
         /* cases of canGo*/
 
@@ -53,7 +59,7 @@ function king (color) {
             for (k=y-1;k<=y+1;++k) {
                 if (i<0 || i>7 || k<0 || k>7) continue;
                 else {
-                    if (map[i][k] !== null && !(i===x && k===y)) {
+                    if (is_cango([i,k]) && ![i,k]===pos) {
                         arr.push([i,k]);
                     }
                 }
@@ -78,9 +84,9 @@ function king (color) {
                 if (map[0][x].firstStep === true) {
                     // check if there are any pieces between them
                     for (n=1;n<=x-1;++n) {
-                        if (map[n][x] !== null) {
-                            break;
+                        if (is_cango([x][n])) {
                             legal = false;
+                            break;
                         }
                     }
                 }
@@ -93,9 +99,9 @@ function king (color) {
                 if (map[7][x].firstStep === true) {
                     // check if there are any pieces between them
                     for (n=x+1;n<=6;++n) {
-                        if (map[n][x] !== null) {
-                            break;
+                        if (is_cango([x][n])) {
                             legal = false;
+                            break;
                         }
                     }
                 }
@@ -110,9 +116,14 @@ function king (color) {
     };
 }
 
+
+module.exports = king;
 /**
  * log :
  * finish the basic setting of castling
  * need to add a function to check if someone can attack it
  * king cannot go to where other can attack him
+ *
+ * June 30,2018
+ * Need check
  */

@@ -4,7 +4,7 @@ const dto = require('..../dto.js');
  * var pawn = pawn.getInstance();
  */
 
-function name (color) {
+function rook (color) {
 
     let gameDto = dto.getInstance();
 
@@ -29,36 +29,68 @@ function name (color) {
         let x = pos[0],
             y = pos[1]; // (x,y) is the position
 
-        let is_cango = coordinate => (map[coordinate[0]][coordinate[1]] !== null && map[coordinate[0]][coordinate[1]].color !== this.color);
+        let first_enermy = true;
+
+        let is_cango = coor => {
+            if (map[coor[0]][coor[1]] === null ) {
+                return true;
+            }
+            else if (map[coor[0]][coor[1]].color !== this.color) {
+                if (first_enermy) {
+                    first_enermy = false;
+                    return true;
+            }
+        }
 
         /* cases of canGo*/
 
         let i = i || 0;
 
         //case 1: go by row
-        i = 0;
-        while (y+i<=7 && is_cango([x,y+i])) {
-            arr.push([x,y+i]);
+        i = 1;
+        while (obb([x,y+i])) {
+            if (map[x][y+i] === null) arr.push([x,y+i]);
+            else {
+                if (map[x][y+i].color !== this.color) arr.push([x,y+i]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (y-i>=0 && is_cango([x,y-i])) {
-            arr.pusj([x,y-i]);
+
+        i = 1;
+        while (obb([x,y-i])) {
+            if (map[x][y-i] === null) arr.push([x,y-i]);
+            else {
+                if (map[x][y-i].color !== this.color) arr.push([x,y-i]);
+                break;
+            }
             i++;
         }
 
         //case 2: go by columns
-        i = 0;
-        while (x+i<=7 && is_cango([x+i,y])) {
-            arr.push([x+i,y]);
+        i = 1;
+        while (obb([x+i,y])) {
+            if (map[x+i][y] === null) arr.push([x+i,y]);
+            else {
+                if (map[x+i][y].color !== this.color) arr.push([x+i,y]);
+                break;
+            }
             i++;
         }
-        i = 0;
-        while (x-i>=0 && is_cango([x+i,y])) {
-            arr.push([x-i,y]);
+
+        i = 1;
+        while (obb([x-i,y])) {
+            if (map[x-i][y] === null) arr.push([x-i,y]);
+            else {
+                if (map[x-i][y].color !== this.color) arr.push([x-i,y]);
+                break;
+            }
             i++;
         }
+
 
         return arr;
     };
 }
+
+module.exports = rook;
