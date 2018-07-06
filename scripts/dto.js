@@ -36,9 +36,25 @@ return map;
 
 }
 
-function dto() {
+/**
+Map :
+    the upper left corner is [0][7]
+    the lower left corner is [0][0]
+    the upper right corner is [7][7]
+    the lower left corner is [0][7]
 
-<<<<<<< HEAD
+    like this:
+    [0][7]  [1][7]  ... [6][7]  [7][7]
+     .         .           .       .
+     .         .           .       .
+     .         .           .       .
+    [0][0]  [1][0]  ... [6][0]  [7][0]
+
+*/
+
+
+
+function dto() {
     /**
      * Private variable
      */
@@ -52,36 +68,37 @@ function dto() {
     this.getMap = () => map;
     this.setMap = (_map) => {
         map = _map;
-=======
+    }
+
     let round = 0 ; // 0 refer to the black turn, 1 refer to the white turn
 
     let map = (function() {
         /**
          * create a empty 8x8 map
          */
-    
-        let arr = [null,null,null,null,null,null,null,null] ; 
+
+        let arr = [null,null,null,null,null,null,null,null] ;
         /**
          * each row has 8 space
          * 'null' means no chess on the space
          */
-    
+
         let map = [arr,arr,arr,arr,arr,arr,arr,arr,arr,arr];
         /**
          * a 8x8 map created !
          * map [1][2] to read column 2, row 3
          */
-    
+
         return map;
     }());
 
-    this.setRound = () => {
+    this.changeRound = () => {
         round = 1 - round ;
         /**
          * if round=1 before, it will be change to 0;
          * else it will be change to 1;
          */
->>>>>>> a83c3a53b9fdbeb3becb23a7b78904890defcf27
+
     }
 
     this.getRound = () => round ;

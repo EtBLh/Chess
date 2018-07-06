@@ -10,7 +10,7 @@ function knight (color) {
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    //this.type = 'king';
+    this.type = 'knight';
 
     this.canGo = pos => {
 

@@ -10,7 +10,7 @@ function bishop (color) {
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    //this.type = 'bishop';
+    this.type = 'bishop';
 
     this.canGo = pos => {
 
@@ -31,16 +31,21 @@ function bishop (color) {
 
         let first_enermy = true;
 
-        let is_cango = coor => {
-            if (map[coor[0]][coor[1]] === null ) {
-                return true;
-            }
-            else if (map[coor[0]][coor[1]].color !== this.color) {
-                if (first_enermy) {
-                    first_enermy = false;
-                    return true;
-            }
+        let oob = pos => {
+
+            /**
+             * oob refer to out_of_board
+             * Input :
+             *      an array, the position
+             * Output :
+             *      true or false
+             */
+
+            if (x>7 || x<0 || y>7 || y<0) return false;
+            return true;
         }
+
+
 
         /* cases of canGo*/
 
@@ -48,7 +53,7 @@ function bishop (color) {
 
         //case 1: right tilted
         i = 1;
-        while (obb([x+i,y+i])) {
+        while (oob([x+i,y+i])) {
             if (map[x+i][y+i] === null) arr.push([x+i,y+i]);
             else {
                 if (map[x+i][y+i].color !== this.color) arr.push([x+i,y+i]);

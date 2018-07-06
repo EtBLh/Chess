@@ -10,7 +10,7 @@ function rook (color) {
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    //this.type = 'king';
+    this.type = 'rook';
 
     this.canGo = pos => {
 
@@ -29,17 +29,19 @@ function rook (color) {
         let x = pos[0],
             y = pos[1]; // (x,y) is the position
 
-        let first_enermy = true;
+        let oob = pos => {
 
-        let is_cango = coor => {
-            if (map[coor[0]][coor[1]] === null ) {
-                return true;
-            }
-            else if (map[coor[0]][coor[1]].color !== this.color) {
-                if (first_enermy) {
-                    first_enermy = false;
-                    return true;
-            }
+            /**
+             * oob refer to out_of_board
+             * Input :
+             *      an array, the position
+             * Output :
+             *      true or false
+             */
+
+            if (x>7 || x<0 || y>7 || y<0) return false;
+            return true;
+
         }
 
         /* cases of canGo*/
