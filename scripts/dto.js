@@ -65,6 +65,7 @@ function dto() {
      * getters and setters
      */
 
+    this.is_selected = false;
     this.getMap = () => map;
     this.setMap = (_map) => {
         map = _map;
@@ -97,6 +98,9 @@ function dto() {
         /**
          * if round=1 before, it will be change to 0;
          * else it will be change to 1;
+         *
+         * 0 means black
+         * 1 means white
          */
 
     }
