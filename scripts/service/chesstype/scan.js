@@ -27,7 +27,7 @@ function scan(color) {
             if (map[x][y].color === color) continue;
 
             // add coordinate to Set
-            for (let item in map[x][y].canGo()) {
+            for (let item in map[x][y].getMovableSquares()) {
                 s.add(item);
             }
 
