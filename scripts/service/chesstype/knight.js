@@ -1,16 +1,25 @@
-const dto = require('..../dto.js');
+const dto = require('../../dto.js');
 /**
  * how to get :
  * var pawn = pawn.getInstance();
  */
 
-function knight (color) {
+function knight (colour) {
 
     let gameDto = dto.getInstance();
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    this.type = 'knight';
+    let property = {
+        type : 'knight',
+        color : colour
+    }
+
+    this.getProperties = () => property;
+    
+    this.getColor = () => property.color;
+
+    this.getType = () => property.type;
 
     this.getMovableSquares = pos => {
 
@@ -36,7 +45,7 @@ function knight (color) {
             if (map[coor[0]][coor[1]] === null ) {
                 return true;
             }
-            else if (map[coor[0]][coor[1]].color !== this.color) return true;
+            else if (map[coor[0]][coor[1]].getColor() !== property.color) return true;
             return false;
         }
 
@@ -150,6 +159,8 @@ function knight (color) {
                 console.log('By the function \'move\' defined in knight.js')
 
         }
+
+        dto.setMap(map);
 
     }
 

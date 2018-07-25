@@ -1,22 +1,31 @@
-const dto = require('..../dto.js');
+const dto = require('../../dto.js');
 /**
  * how to get :
  * var pawn = pawn.getInstance();
  */
 
-function pawn (color) {
+function pawn (colour) {
 
     let gameDto = dto.getInstance();
 
     let map = gameDto.getMap();
 
-    this.type = 'pawn';
+    let property = {
+        type : 'pawn',
+        color : colour,
+        firstStep : true,
+        twoSquare : false
+    }
 
-    this.color = color;
+    this.getProperties = () => property;
 
-    this.firstStep = false;
+    this.getColor = () => property.color;
 
-    this.twoSqure = false;
+    this.getType = () => property.type;
+
+    this.is_firstStep = () => property.firstStep;
+
+    this.is_twoSquare = () => property.twoSquare;
 
     this.getMovableSquares = pos => {
 
@@ -32,6 +41,7 @@ function pawn (color) {
 
         let result = {
             normal : [],
+            twoSquare :[],
             enermy : [],
             promotion : [],
             'En passant' : []
@@ -67,12 +77,12 @@ function pawn (color) {
             result.normal.push([x,y+1]);
         }
 
-        if (oob([x+1,y+1]) && map[x+1][y+1].color !== this.color) {
+        if (oob([x+1,y+1]) && map[x+1][y+1].getColor() !== property.color) {
             // case 2 : beat opposite
             result.enermy.push([x+1,y+1]);
         }
 
-        if (oob([x-1,y+1]) && map[x-1][y+1].color !== this.color) {
+        if (oob([x-1,y+1]) && map[x-1][y+1].getColor() !== property.color) {
             // case 3 : beat opposite
             result.enermy.push([x-1,y+1]);
         }
@@ -83,15 +93,18 @@ function pawn (color) {
 
         // case : "En passant"
         if (oob([x-1,y])) {
-            if (map[x-1][y].twoSqure === true && map[x-1][y].firstStep === true) {
+            if (map[x-1][y].is_twoSquare() === true && map[x-1][y].is_firstStep() === true) {
                 result['En passant'].push([x-1,y+1]);
             }
         }
         if (oob([x+1,y])) {
-            if (map[x+1][y].twoSqure === true && map[x+1][y].firstStep === false) {
+            if (map[x+1][y].is_twoSquare() === true && map[x+1][y].is_firstStep() === false) {
                 result.['En passant'].push([x+1,y+1]);
             }
         }
+
+        //case :twoSquare
+        if (property.firstStep === true) result.twoSquare.push([x,y+2]);
 
         return result;
     };
@@ -129,14 +142,25 @@ function pawn (color) {
                 map[targetX][targetY] = map[nowX][nowY];
                 map[nowX][nowY] = null;
                 break;
-            case 'enermy':
+            case 'twoSquare':
                 map[targetX][targetY] = map[nowX][nowY];
                 map[nowX][nowY] = null;
                 break;
             case 'En passant':
+                // cause of the special situation: En passant may kill two at the same time
+                if (map[targetX][targetY] !== null && property.color === 'black') {
+                    dto.setBlackSaverAnotherKill(targetPos);
+                }
+                else if (map[targetX][targetY] !== null && property.color === 'white') {
+                    dto.setWhiteSaverAnotherKill(targetPos);
+                }
                 map[targetX][targetY] = map[nowX][nowY];
                 map[nowX][nowY] = null;
                 map[targetX][nowY] = null;
+                break;
+            case 'enermy':
+                map[targetX][targetY] = map[nowX][nowY];
+                map[nowX][nowY] = null;
                 break;
             default:
                 console.log('Unknown type');
@@ -144,7 +168,9 @@ function pawn (color) {
 
         }
 
-        firstStep = false;
+        property.firstStep = false;
+
+        dto.setMap(map);
 
     }
 

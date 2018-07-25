@@ -1,16 +1,25 @@
-const dto = require('..../dto.js');
+const dto = require('../../dto.js');
 /**
  * how to get :
  * var pawn = pawn.getInstance();
  */
 
-function bishop (color) {
+function bishop (colour) {
 
     let gameDto = dto.getInstance();
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    this.type = 'bishop';
+    let property = {
+        type : 'bishop',
+        color : colour
+    }
+
+    this.getProperties = () => property;
+    
+    this.getColor = () => property.color;
+
+    this.getType = () => property.type;
 
     this.getMovableSquares = pos => {
 
@@ -58,7 +67,7 @@ function bishop (color) {
         while (oob([x+i,y+i])) {
             if (map[x+i][y+i] === null) result.normal.push([x+i,y+i]);
             else {
-                if (map[x+i][y+i].color !== this.color) result.enermy.push([x+i,y+i]);
+                if (map[x+i][y+i].getColor() !== property.color) result.enermy.push([x+i,y+i]);
                 break;
             }
             i++;
@@ -68,7 +77,7 @@ function bishop (color) {
         while (oob([x-i,y-i])) {
             if (map[x-i][y-i] === null) result.normal.push([x-i,y-i]);
             else {
-                if (map[x-i][y-i].color !== this.color) result.enermy.push([x-i,y-i]);
+                if (map[x-i][y-i].getColor() !== property.color) result.enermy.push([x-i,y-i]);
                 break;
             }
             i++;
@@ -79,7 +88,7 @@ function bishop (color) {
         while (oob([x-i,y+i])) {
             if (map[x-i][y+i] === null) result.normal.push([x-i,y+i]);
             else {
-                if (map[x-i][y+i].color !== this.color) result.enermy.push([x-i,y+i]);
+                if (map[x-i][y+i].getColor() !== property.color) result.enermy.push([x-i,y+i]);
                 break;
             }
             i++;
@@ -89,7 +98,7 @@ function bishop (color) {
         while (oob([x+i,y-i])) {
             if (map[x+i][y-i] === null) result.normal.push([x+i,y-i]);
             else {
-                if (map[x+i][y-i].color !== this.color) result.enermy.push([x+i,y-i]);
+                if (map[x+i][y-i].getColor() !== property.color) result.enermy.push([x+i,y-i]);
                 break;
             }
             i++;
@@ -141,6 +150,8 @@ function bishop (color) {
                 console.log('By the function \'move\' defined in bishop.js')
 
         }
+
+        dto.setMap(map);
 
     }
 }

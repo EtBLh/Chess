@@ -1,4 +1,4 @@
-const dto = require('..../dto.js');
+const dto = require('../../dto.js');
 /**
  * how to use :
  * var scan = require('./scan')

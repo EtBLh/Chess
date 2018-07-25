@@ -1,23 +1,33 @@
-const dto = require('..../dto.js');
+const dto = require('../../dto.js');
 const scan = require('./scan.js');
 /**
  * how to get :
  * var pawn = pawn.getInstance();
  */
 
-function king (color) {
+function king (colour) {
 
     let gameDto = dto.getInstance();
 
     let map = gameDto.getMap(); // columns starts at 0
 
+    let property = {
+        type : 'king',
+        color : colour,
+        firstStep : true
+    }
+
     // properties
 
-    this.firstStep = true ;
+    this.getProperties = () => property;
+    
+    this.is_firstStep = () => property.firstStep;
 
-    this.type = 'king';
+    this.getColor = () => property.color;
 
-    this.getMovableSquare = pos => {
+    this.getType = () => property.type;
+
+    this.getMovableSquares = pos => {
 
         /**
          *  Input:
@@ -38,8 +48,8 @@ function king (color) {
             y = pos[1]; // (x,y) is the position
 
         let canMove = coordinate => {
-            if (map[coordinate[0]][coordinate[1]] === null || map[coordinate[0]][coordinate[1]].color !== this.color) {
-                let arr = scan(this.color);
+            if (map[coordinate[0]][coordinate[1]] === null || map[coordinate[0]][coordinate[1]].getColor() !== color) {
+                let arr = scan(color);
                 if (arr.indexOf(pos) === -1) return true;
                 else return false;
             }
@@ -82,9 +92,9 @@ function king (color) {
 
             //left one
             // step 1:check if there is a unmoved rook in king's line
-            if (map[0][x].type === rook && map[0][x].color === this.color) {
+            if (map[0][x].getType() === rook && map[0][x].getColor() === color) {
                 // check if the rook hasn't been if_moved
-                if (map[0][x].firstStep === true) {
+                if (map[0][x].is_firstStep() === true) {
                     // check if there are any pieces between them
                     for (n=1;n<=x-1;++n) {
                         if (canMove([x][n])) {
@@ -97,9 +107,9 @@ function king (color) {
             }
 
             //right one
-            if (map[7][x].type === rook && map[7][x].color === this.color) {
+            if (map[7][x].getType() === rook && map[7][x].getColor() === color) {
                 // check if the rook hasn't been if_moved
-                if (map[7][x].firstStep === true) {
+                if (map[7][x].is_firstStep() === true) {
                     // check if there are any pieces between them
                     for (n=x+1;n<=6;++n) {
                         if (canMove([x][n])) {
@@ -164,6 +174,8 @@ function king (color) {
                 console.log('By the function \'move\' defined in king.js');
 
         }
+
+        dto.setMap(map);
 
         firstStep = false;
 

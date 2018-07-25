@@ -1,16 +1,25 @@
-const dto = require('..../dto.js');
+const dto = require('../../dto.js');
 /**
  * how to get :
  * var pawn = pawn.getInstance();
  */
 
-function queen (color) {
+function queen (colour) {
 
     let gameDto = dto.getInstance();
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    this.type = 'queen';
+    let property = {
+        type : 'queen',
+        color : colour
+    }
+
+    this.getProperties = () => property;
+
+    this.getType = () => property.type;
+
+    this.getColor = () => property.color;
 
     this.getMovableSquares = pos => {
 
@@ -62,7 +71,7 @@ function queen (color) {
         while (oob([x,y+i])) {
             if (map[x][y+i] === null) result.normal.push([x,y+i]);
             else {
-                if (map[x][y+i].color !== this.color) result.enermy.push([x,y+i]);
+                if (map[x][y+i].getColor() !== property.color) result.enermy.push([x,y+i]);
                 break;
             }
             i++;
@@ -72,7 +81,7 @@ function queen (color) {
         while (oob([x,y-i])) {
             if (map[x][y-i] === null) result.normal.push([x,y-i]);
             else {
-                if (map[x][y-i].color !== this.color) result.enermy.push([x,y-i]);
+                if (map[x][y-i].getColor() !== property.color) result.enermy.push([x,y-i]);
                 break;
             }
             i++;
@@ -83,7 +92,7 @@ function queen (color) {
         while (oob([x+i,y])) {
             if (map[x+i][y] === null) result.normal.push([x+i,y]);
             else {
-                if (map[x+i][y].color !== this.color) result.enermy.push([x+i,y]);
+                if (map[x+i][y].getColor() !== property.color) result.enermy.push([x+i,y]);
                 break;
             }
             i++;
@@ -93,7 +102,7 @@ function queen (color) {
         while (oob([x-i,y])) {
             if (map[x-i][y] === null) result.normal.push([x-i,y]);
             else {
-                if (map[x-i][y].color !== this.color) result.enermy.push([x-i,y]);
+                if (map[x-i][y].getColor() !== property.color) result.enermy.push([x-i,y]);
                 break;
             }
             i++;
@@ -104,7 +113,7 @@ function queen (color) {
         while (oob([x+i,y+i])) {
             if (map[x+i][y+i] === null) result.normal.push([x+i,y+i]);
             else {
-                if (map[x+i][y+i].color !== this.color) result.enermy.push([x+i,y+i]);
+                if (map[x+i][y+i].getColor() !== property.color) result.enermy.push([x+i,y+i]);
                 break;
             }
             i++;
@@ -114,7 +123,7 @@ function queen (color) {
         while (oob([x-i,y-i])) {
             if (map[x-i][y-i] === null) result.normal.push([x-i,y-i]);
             else {
-                if (map[x-i][y-i].color !== this.color) result.enermy.push([x-i,y-i]);
+                if (map[x-i][y-i].getColor() !== property.color) result.enermy.push([x-i,y-i]);
                 break;
             }
             i++;
@@ -125,7 +134,7 @@ function queen (color) {
         while (oob([x-i,y+i])) {
             if (map[x-i][y+i] === null) result.normal.push([x-i,y+i]);
             else {
-                if (map[x-i][y+i].color !== this.color) result.enermy.push([x-i,y+i]);
+                if (map[x-i][y+i].getColor() !== property.color) result.enermy.push([x-i,y+i]);
                 break;
             }
             i++;
@@ -135,7 +144,7 @@ function queen (color) {
         while (oob([x+i,y-i])) {
             if (map[x+i][y-i] === null) result.normal.push([x+i,y-i]);
             else {
-                if (map[x+i][y-i].color !== this.color) result.enermy.push([x+i,y-i]);
+                if (map[x+i][y-i].getColor() !== property.color) result.enermy.push([x+i,y-i]);
                 break;
             }
             i++;
@@ -186,6 +195,8 @@ function queen (color) {
                 console.log('By the function \'move\' defined in queen.js')
 
         }
+
+        dto.setMap(map);
 
     }
 
