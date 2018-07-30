@@ -6,49 +6,42 @@ const king = require('.chesstype/king.js');
 const bishop = require('./chesstype/bishop.js');
 const knight = require('./chesstype/knight.js');
 const scan = require('./chessman/scan.js');
+const tool = require('./tools.js');
+
 const map = dto.getMap();
 
+function BlackUndo = () => {
+    let BlackSaver = dto.getBlackSaver();
+    let nowPos = BlackSaver.movePosAfter;
+    let targetPos = BlackSaver.movePosBefore;
+    let killedPos = BlackSaver.killPos;
 
-function init() {
-
-    /**
-    Map :
-        the upper left corner is [0][7]
-        the lower left corner is [0][0]
-        the upper right corner is [7][7]
-        the lower left corner is [0][7]
-
-        like this:
-        [0][7]  [1][7]  ... [6][7]  [7][7]
-         .         .           .       .
-         .         .           .       .
-         .         .           .       .
-        [0][0]  [1][0]  ... [6][0]  [7][0]
-
-    */
-
-    map[0] = [new rook('black'), new knight('black'), new bishop('black'),
-             new queen('black'), new king('black'), new bishop('black'),
-             new knight('black'), new rook('black')];
-
-    map[1] = [new pawn('black'), new pawn('black'), new pawn('black'),
-             new pawn('black'), new pawn('black'), new pawn('black'),
-             new pawn('black'), new pawn('black')];
-
-    map[7] = [new rook('white'), new knight('white'), new bishop('white'),
-             new queen('white'), new king('white'), new bishop('white'),
-             new knight('white'), new rook('white')];
-
-    map[6] = [new pawn('white'), new pawn('white'), new pawn('white'),
-              new pawn('white'), new pawn('white'), new pawn('white'),
-              new pawn('white'), new pawn('white')];
-
-    dto.setMap(map);
+    //move the moved chess back
+    map[targetPos[0]][targetPos[1]] = BlackSaver.move;
+    map[nowPos[0]][nowPos[1]] = null;
+    //make the killed chess alive
+    map[killedPos[0]][killedPos[1]] = BlackSaver.kill;
+    dto.clearBlackSaver();
 }
+
+function WhiteUndo = () => {
+    let WhiteSaver = dto.getWhiteSaver();
+    let nowPos = WhiteSaver.movePosAfter;
+    let targetPos = WhiteSaver.movePosBefore;
+    let killedPos = WhiteSaver.killPos;
+
+    //move the moved chess back
+    map[targetPos[0]][targetPos[1]] = WhiteSaver.move;
+    map[nowPos[0]][nowPos[1]] = null;
+    //make the killed chess alive
+    map[killedPos[0]][killedPos[1]] = WhiteSaver.kill;
+    dto.clearWhiteSaver();
+}
+
 
 function RTC (round) {
     // name : Round To color
-    if (round === 0) return 'black';
+    if (round === 1) return 'black';
     else return 'white';
 }
 
@@ -72,24 +65,67 @@ function service(refresh){
          *
          * Output:
          *      case 1: player has not selected anything
-         *          return a arr which include all the cango-position
+         *          return a arr which include all the movable-position
          *
          *      case 2:player has selected something
          *          move the chess
          *
-         * 0 means black
-         * 1 means white
+         * 1 means black
+         * 0 means white
          */
 
-         let x = pos[0],
-             y = pos[1];
+        let x = pos[0],
+            y = pos[1];
+
+        let is_selected = dto.is_selected;
 
         // case 1: player has not selected anything
-        if (dto.is_selected === false && map[x][y].color === RTC(round)) {
-            return map[x][y].canGo();
+        if (is_selected === false && map[x][y].color === RTC(round)) {
+            is_selected = false;
+            return map[x][y].getMovableSquares();
+        }
+
+        // case 2: player had selected something
+        if (is_selected === true) {
+
+            let selection = dto.getSelection();
+            if (moveVerify(selection, pos) === false) return;
+
+            if (dto.getRoundByColor() === 'white') {
+                dto.clearWhiteSaver();
+                dto.setWhiteSaver(selection,pos);
+            }
+            else if (dto.getRoundByColor() === 'black') {
+                dto.clearBlackSaver();
+                dto.setBlackSaver(selection,pos);
+            }
+
+            let type = tool.getType(map[x][y].getMovableSquares(),selection);
+            let selectionX = selection[0],
+                selectionY = selection[1];
+
+            map[selectionX][selectionY].move(selection,pos,type);
+
+            dto.clearSelection();
+
+            dto.changeRound();
         }
     }
+    
     this.undo = () => {
+
+        round = dto.getRoundByColor();
+
+        dto.clearSelection();
+
+        if (round === 'white') {
+            BlackUndo();
+            WhiteUndo();
+        }
+        else if (round === 'Black') {
+            WhiteUndo();
+            BlackUndo();
+        }
 
     }
 

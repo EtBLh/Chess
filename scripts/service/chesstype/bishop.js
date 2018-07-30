@@ -1,18 +1,27 @@
-const dto = require('..../dto.js');
+const dto = require('../../dto.js');
 /**
  * how to get :
  * var pawn = pawn.getInstance();
  */
 
-function bishop (color) {
+function bishop (colour) {
 
     let gameDto = dto.getInstance();
 
     let map = gameDto.getMap(); // columns starts at 0
 
-    this.type = 'bishop';
+    let property = {
+        type : 'bishop',
+        color : colour
+    }
 
-    this.canGo = pos => {
+    this.getProperties = () => property;
+    
+    this.getColor = () => property.color;
+
+    this.getType = () => property.type;
+
+    this.getMovableSquares = pos => {
 
         /**
          *  Input:
@@ -24,12 +33,14 @@ function bishop (color) {
          *      each element is a position like (x,y)
          */
 
-        let arr = arr || [];
+        let result = {
+            // props are the types of movements
+            normal : [],
+            enermy : []
+        };
 
         let x = pos[0],
             y = pos[1]; // (x,y) is the position
-
-        let first_enermy = true;
 
         let oob = pos => {
 
@@ -54,19 +65,19 @@ function bishop (color) {
         //case 1: right tilted
         i = 1;
         while (oob([x+i,y+i])) {
-            if (map[x+i][y+i] === null) arr.push([x+i,y+i]);
+            if (map[x+i][y+i] === null) result.normal.push([x+i,y+i]);
             else {
-                if (map[x+i][y+i].color !== this.color) arr.push([x+i,y+i]);
+                if (map[x+i][y+i].getColor() !== property.color) result.enermy.push([x+i,y+i]);
                 break;
             }
             i++;
         }
 
         i = 1;
-        while (obb([x-i,y-i])) {
-            if (map[x-i][y-i] === null) arr.push([x-i,y-i]);
+        while (oob([x-i,y-i])) {
+            if (map[x-i][y-i] === null) result.normal.push([x-i,y-i]);
             else {
-                if (map[x-i][y-i].color !== this.color) arr.push([x-i,y-i]);
+                if (map[x-i][y-i].getColor() !== property.color) result.enermy.push([x-i,y-i]);
                 break;
             }
             i++;
@@ -74,28 +85,75 @@ function bishop (color) {
 
         //case 2: left tilted
         i = 1;
-        while (obb([x-i,y+i])) {
-            if (map[x-i][y+i] === null) arr.push([x-i,y+i]);
+        while (oob([x-i,y+i])) {
+            if (map[x-i][y+i] === null) result.normal.push([x-i,y+i]);
             else {
-                if (map[x-i][y+i].color !== this.color) arr.push([x-i,y+i]);
+                if (map[x-i][y+i].getColor() !== property.color) result.enermy.push([x-i,y+i]);
                 break;
             }
             i++;
         }
 
         i = 1;
-        while (obb([x+i,y-i])) {
-            if (map[x+i][y-i] === null) arr.push([x+i,y-i]);
+        while (oob([x+i,y-i])) {
+            if (map[x+i][y-i] === null) result.normal.push([x+i,y-i]);
             else {
-                if (map[x+i][y-i].color !== this.color) arr.push([x+i,y-i]);
+                if (map[x+i][y-i].getColor() !== property.color) result.enermy.push([x+i,y-i]);
                 break;
             }
             i++;
         }
 
 
-        return arr;
+        return result;
     };
+
+    this.move = (nowPos,targetPos,type) => {
+
+        /**
+        * Input : nowPos, targetPos, type of the movement
+        *
+        * Output : None
+        */
+
+        // Data Verify
+        if (targetPos.length !== 2 || typeof targetPos[0] !== number || typeof targetPos[1] !== number) {
+            console.log('Unexpected input for targetPos');
+            console.log('By the function \'move\' defined in bishop.js');
+            return ;
+        }
+
+        // Data Verify
+        if (nowPos.length !== 2 || typeof nowPos[0] !== number || typeof nowPos[1] !== number) {
+            console.log('Unexpected input');
+            console.log('By the function \'move\' defined in bishop.js');
+            return ;
+        }
+
+        let nowX = nowPos[0],
+            nowY = nowPos[1];
+
+        let targetX = targetPos[0],
+            targetY = targetPos[1];
+
+        switch (type) {
+            case 'normal':
+                map[targetX][targetY] = map[nowX][nowY];
+                map[nowX][nowY] = null;
+                break;
+            case 'enermy':
+                map[targetX][targetY] = map[nowX][nowY];
+                map[nowX][nowY] = null;
+                break;
+            default:
+                console.log('Unknown type');
+                console.log('By the function \'move\' defined in bishop.js')
+
+        }
+
+        dto.setMap(map);
+
+    }
 }
 
 module.exports = bishop;
