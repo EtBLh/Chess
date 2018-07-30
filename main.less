@@ -1,6 +1,5 @@
 @COLOR_START: #e740d2;
 @COLOR_END: #4a0fad;
-
 * {
     box-sizing: border-box;
 }
@@ -11,25 +10,55 @@ body {
     padding: 0;
     overflow: hidden;
     width: 100%;
-    height: 100%;
-    // -webkit-app-region: drag;
+    height: 100%; // -webkit-app-region: drag;
     // background: -webkit-linear-gradient(28deg, @COLOR_START, @COLOR_END ) no-repeat; 
     background: #f0f0f0;
 }
 
-#container {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    #gameAreaContainer {
-        border-radius: 15px;
-        border: rgba(255, 255, 255, 0) solid 1px;
-        overflow: hidden;
-        filter: drop-shadow(0px 0px 5px rgba(99, 99, 99, 0.7));
+table#chessboard {
+    width: 900px;
+    height: 900px;
+    tbody {
+        tr {
+            td {
+                .sign-h {
+                    width: 50px;
+                    height: 100px;
+                }
+                .sign-v {
+                    width: 100px;
+                    height: 50px;
+                }
+                .cell {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        }
     }
+}
+
+.black-cell {
+    background-color: #828282;
+}
+
+.white-cell {
+    background-color: #f2f2f2;
+}
+
+.chess0 {
+    fill: #45d9fd;
+}
+
+.chess1 {
+    fill: #ee2560;
+}
+
+#container {
+    border-radius: 15px;
+    border: rgba(255, 255, 255, 0) solid 1px;
+    overflow: hidden;
+    filter: drop-shadow(0px 0px 5px rgba(99, 99, 99, 0.7));
 }
 
 @MENU_CELL_LENGTH: 7em;
@@ -40,7 +69,7 @@ body {
     right: 0;
     width: @MENU_CELL_LENGTH;
     height: @MENU_CELL_LENGTH * @MENU_COUNT;
-    div{
+    div {
         width: @MENU_CELL_LENGTH;
         height: @MENU_CELL_LENGTH;
     }

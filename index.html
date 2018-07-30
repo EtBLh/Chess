@@ -13,7 +13,239 @@
 
     <div id="container">        
         <div id="gameAreaContainer">
-            <canvas id="gameArea" width="800" height="800" ></canvas>
+            <div id="chessboard">
+                <!-- table>tbody>tr#signs-h>td.sign-h{$}*8^tr#row-$@0*8>td.sign-v{$}+td#data-$@0*8>div#cell -->
+                <table>
+                    <tbody>
+                        <tr id="signs-h">
+                            <td class="sign-h">1</td>
+                            <td class="sign-h">2</td>
+                            <td class="sign-h">3</td>
+                            <td class="sign-h">4</td>
+                            <td class="sign-h">5</td>
+                            <td class="sign-h">6</td>
+                            <td class="sign-h">7</td>
+                            <td class="sign-h">8</td>
+                        </tr>
+                        <tr id="row-0">
+                            <td class="sign-v">1</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                        <tr id="row-1">
+                            <td class="sign-v">2</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                        <tr id="row-2">
+                            <td class="sign-v">3</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                        <tr id="row-3">
+                            <td class="sign-v">4</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                        <tr id="row-4">
+                            <td class="sign-v">5</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                        <tr id="row-5">
+                            <td class="sign-v">6</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                        <tr id="row-6">
+                            <td class="sign-v">7</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                        <tr id="row-7">
+                            <td class="sign-v">8</td>
+                            <td id="data-0">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-1">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-2">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-3">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-4">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-5">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-6">
+                                <div id="cell"></div>
+                            </td>
+                            <td id="data-7">
+                                <div id="cell"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

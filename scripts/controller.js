@@ -1,3 +1,8 @@
+import renderer from './view/renderer.js'
+import service from './service/service.js'
+import playerControl from './service/playerControl.js'
+import AIControl from './service/AIControl.js'
+
 const width = document.getElementById('gameArea').width,
     height = document.getElementById('gameArea').width;
 
@@ -6,15 +11,9 @@ const width = document.getElementById('gameArea').width,
     document.getElementById('gameArea').style.height = height;
 }());
 
-const renderer = require('./view/renderer.js');
-const service = require('./service/service.js');
-const playerControl = require('./service/playerControl.js');
-const AIControl = require('./service/AIControl.js');
-
 var gameArea = document.getElementById('gameArea');
-var gameAreaGC = gameArea.getContext('2d');
 
-var gameRenderer = new renderer(gameAreaGC, width, height);
+var gameRenderer = new renderer(gameArea, width, height);
 var gameService = new service(gameRenderer.refresh);
 
 gameRenderer.refresh();
