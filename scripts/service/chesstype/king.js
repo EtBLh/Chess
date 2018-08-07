@@ -53,6 +53,7 @@ function king (colour) {
                 if (arr.indexOf(pos) === -1) return true;
                 else return false;
             }
+        }
 
         /* cases of canMove*/
 
@@ -165,7 +166,7 @@ function king (colour) {
                 if (nowX - targetX < 0) {
                     map[0][nowY].move([0,nowY],[nowX-1,nowY],'castling');
                 }
-                else (nowX - targetX > 0) {
+                else if (nowX - targetX > 0) {
                     map[7][nowY].move([7,nowY],[nowX+1,nowY],'castling');
                 }
                 break;
@@ -186,6 +187,7 @@ function king (colour) {
 
 
 module.exports = king;
+
 /**
  * log :
  * finish the basic setting of castling
@@ -194,4 +196,4 @@ module.exports = king;
  *
  * June 30,2018
  * Need check
- */
+*/

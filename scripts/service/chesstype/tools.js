@@ -7,13 +7,19 @@ function getMovableSquaresAsArray (pos) {
 
     Squares = map[x][y].getMovableSquares(); // an object
 
+    resultSet = new Set();
     result = result || [];
 
     for (let key of Squares) {
         for (let item of Squares[key]) {
-            result.push(item);
+            resultSet.push(item);
         }
     }
+
+    // Set to Array
+    resultSet.forEach(element => {
+        result.push(element);
+    });
 
     return result;
 

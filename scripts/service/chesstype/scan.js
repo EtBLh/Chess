@@ -36,7 +36,7 @@ function scan(color) {
     // change s to an array
     let arr = arr || [];
 
-    s.forEach(function (value)) {
+    s.forEach(function (value) {
         arr.push(value);
     });
 
