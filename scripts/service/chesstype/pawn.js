@@ -72,7 +72,7 @@ function pawn (colour) {
          */
 
 
-        if (oob([x,y+1]) && map[x][y+1] === null)) {
+        if (oob([x,y+1]) && map[x][y+1] === null) {
             // case 1 : go ahead (1 step)
             result.normal.push([x,y+1]);
         }
@@ -99,7 +99,7 @@ function pawn (colour) {
         }
         if (oob([x+1,y])) {
             if (map[x+1][y].is_twoSquare() === true && map[x+1][y].is_firstStep() === false) {
-                result.['En passant'].push([x+1,y+1]);
+                result['En passant'].push([x+1,y+1]);
             }
         }
 
