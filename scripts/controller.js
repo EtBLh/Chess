@@ -1,23 +1,26 @@
 import renderer from './view/renderer.js'
 import service from './service/service.js'
-import playerControl from './service/playerControl.js'
-import AIControl from './service/AIControl.js'
+import playerStream from './service/playerStream.js'
 
-const width = document.getElementById('gameArea').width,
-    height = document.getElementById('gameArea').width;
+//get gameArea from DOM
+const gameArea = document.getElementById('gameArea');
+
+//initialize all the class
+const gameRenderer = new renderer(gameArea, width, height);
+const gameService = new service(gameRenderer.refresh);
+const assigner = new playerStream();
+
+const width = gameArea.width,
+    height = gameArea.width;
 
 (function resize() {
-    document.getElementById('gameArea').style.width = width;
-    document.getElementById('gameArea').style.height = height;
+    gameArea.style.width = width;
+    gameArea.style.height = height;
 }());
 
-var gameArea = document.getElementById('gameArea');
-
-var gameRenderer = new renderer(gameArea, width, height);
-var gameService = new service(gameRenderer.refresh);
-
+//initialize view
 gameRenderer.refresh();
 
-document.querySelector("#gameArea").addEventListener("click", (e) => {
-    gameService.mouseClicked(e.offsetX, e.offsetY);
+gameArea.addEventListener("click", (e) => {
+    gameService.mouseClicked({x = e.offsetX,y = e.offsetY});
 });

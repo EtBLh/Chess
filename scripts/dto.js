@@ -63,8 +63,8 @@ function initMap() {
   }
 
 function saver () {
-    move : {},
-    kill : {},
+    move : {}
+    kill : {}
     anotherKill : {}
 }
 

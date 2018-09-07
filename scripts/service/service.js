@@ -10,7 +10,7 @@ const tool = require('./tools.js');
 
 const map = dto.getMap();
 
-function BlackUndo = () => {
+const BlackUndo = () => {
     let BlackSaver = dto.getBlackSaver();
     let nowPos = BlackSaver.movePosAfter;
     let targetPos = BlackSaver.movePosBefore;
@@ -24,7 +24,7 @@ function BlackUndo = () => {
     dto.clearBlackSaver();
 }
 
-function WhiteUndo = () => {
+const WhiteUndo = () => {
     let WhiteSaver = dto.getWhiteSaver();
     let nowPos = WhiteSaver.movePosAfter;
     let targetPos = WhiteSaver.movePosBefore;
@@ -74,8 +74,7 @@ function service(refresh){
          * 0 means white
          */
 
-        let x = pos[0],
-            y = pos[1];
+        let x = pos.x, y = pos.y;
 
         let is_selected = dto.is_selected;
 
